@@ -1,0 +1,41 @@
+
+
+[tool.poetry]
+name = "clear-skies-auth-server-example"
+version = "0.9.0"
+description = "An example of using the clearskies auth server to build a multi-tenanted authentication server with RBAC"
+authors = [
+    "Conor Mancone <cmancone@gmail.com>",
+]
+repository = "https://github.com/cmancone/clearskies-auth-server-example"
+license = "MIT"
+readme = "./README.md"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+clear-skies = "^1.17.1"
+clear-skies-auth-server = "^0.9.1"
+clear-skies-aws = "^1.7.5"
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.2.2"
+black = "^23.3.0"
+
+[tool.poetry.extras]
+
+[tool.black]
+line-length = 120
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
