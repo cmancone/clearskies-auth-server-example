@@ -1,9 +1,9 @@
 import clearskies
-from clearskies.column_types import uuid, belongs_to, many_to_many
+from clearskies.column_types import uuid, belongs_to
 from collections import OrderedDict
-from . import user, organization, user_organization_role, role
+from . import user, organization, role
 
-class UserOrganization(clearskies.Model):
+class UserOrganizationRole(clearskies.Model):
     def __init__(self, memory_backend, columns):
         super().__init__(memory_backend, columns)
 
@@ -12,9 +12,5 @@ class UserOrganization(clearskies.Model):
             uuid('id'),
             belongs_to("user_id", parent_models_class=user.User),
             belongs_to("organization_id", parent_models_class=organization.Organization),
-            many_to_many(
-                "roles",
-                pivot_models_class=user_organization_role.UserOrganizationRole,
-                related_models_class=role.Role,
-            )
+            belongs_to("role_id", parent_models_class=role.Role),
         ])

@@ -32,3 +32,10 @@
     ]
 }
 ```
+
+```
+poetry install
+export AWS_REGION='us-east-1'
+poetry run python key_manager.py --request_method=POST
+poetry run python key_manager.py
+```
