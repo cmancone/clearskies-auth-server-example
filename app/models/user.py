@@ -29,7 +29,7 @@ class User(clearskies.Model):
                 source="authorization_data",
                 source_key_name="organization_id",
             ),
-            email('email', input_requirements=[required(), unique()]),
+            email('email', input_requirements=[required()]),
             password('password', input_requirements=[required()]),
             string('name', input_requirements=[required()]),
             belongs_to("role_id", parent_models_class=role.Role),

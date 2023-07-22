@@ -20,6 +20,10 @@ registration = clearskies.Application(
                         "organization_id": {
                             "source": "routing_data",
                             "source_key_name": "organization_id",
+                        },
+                        "email": {
+                            # the email is not marked as unique in the base model because it mucks with the login process
+                            "input_requirements": [clearskies.input_requirements.unique()],
                         }
                     }
                 },
@@ -32,7 +36,7 @@ registration = clearskies.Application(
                 "handler_config": {
                     "model_class": models.User,
                     "writeable_columns": ["email", "password", "name"],
-                    "readable_columns": ["id", "email", "name"],
+                    "readable_columns": ["id", "organization_id", "email", "name"],
                     "column_overrides": {
                         # organization is normally of type "tenant_id" which has lots of behavior associated
                         # with it to identify the user's organization based on their JWT.  In the case of the

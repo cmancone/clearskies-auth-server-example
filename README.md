@@ -47,3 +47,5 @@ uwsgi --http :9090 -H .venv --wsgi-file auth_service.py
 ```
 curl 'http://localhost:9090/roles' -d '{"name": "Admin"}'
 curl 'http://localhost:9090/organizations' -d '{"name": "Conor", "email": "cmancone@example.com", "password": "thisisabadpassword", "repeat_password": "thisisabadpassword"}'
+curl 'http://localhost:9090/organizations/{organization_id}/login' -d '{"email":"cmancone@example.com","password":"thisisabadpassword"}'
+```

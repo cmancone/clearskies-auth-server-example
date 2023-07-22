@@ -8,7 +8,7 @@ login = clearskies.Application(
         "authentication": clearskies.authentication.public(),
         "routes": [
             {
-                "path": "login",
+                "path": "/organizations/{organization_id}/login",
                 "handler_class": clearskies_auth_server.handlers.PasswordLogin,
                 "handler_config": {
                     "user_model_class": models.user.User,
@@ -18,8 +18,11 @@ login = clearskies.Application(
                     "path_to_public_keys": "/auth/test/public_keys",
                     "username_column_name": "email",
                     "password_column_name": "password",
+                    "tenant_id_column_name": "organization_id",
+                    "tenant_id_source": "routing_data",
+                    "tenant_id_source_key_name": "organization_id",
                     "jwt_lifetime_seconds": 3600,
-                    "claims_column_names": ["email"],
+                    "claims_column_names": ["email", "role_id", "organization_id"],
                 },
             },
             {
