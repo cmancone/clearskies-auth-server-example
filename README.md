@@ -1,3 +1,13 @@
+Register and create new tenant
+Register for tenant
+Login
+Switch tenant
+Modify my profile
+Join another tenant
+View my organizations
+JWKS
+CRUD users in tenant
+
 ```
 {
     "Version": "2012-10-17",
@@ -47,5 +57,19 @@ uwsgi --http :9090 -H .venv --wsgi-file auth_service.py
 ```
 curl 'http://localhost:9090/roles' -d '{"name": "Admin"}'
 curl 'http://localhost:9090/organizations' -d '{"name": "Conor", "email": "cmancone@example.com", "password": "thisisabadpassword", "repeat_password": "thisisabadpassword"}'
-curl 'http://localhost:9090/organizations/{organization_id}/login' -d '{"email":"cmancone@example.com","password":"thisisabadpassword"}'
+curl "http://localhost:9090/login/{organization_id}" -d '{"email":"cmancone@example.com","password":"thisisabadpassword"}'
+
+curl 'http://localhost:9090/organizations/{organization_id}/register' -d '{"email":"cmancone2@example.com","password":"thisisabadpassword","repeat_password":"thisisabadpassword","name":"Bob"}'
+curl 'http://localhost:9090/login/{organization_id}' -d '{"email":"cmancone2@example.com","password":"thisisabadpassword"}'
+
+curl 'http://localhost/profile/my-organizations' -H "Authorization: Bearer $JWT"
+```
+
+
+```
+curl 'http://localhost:9090/roles' -d '{"name": "Admin"}'
+export ORGANIZATION_ID=$(curl 'http://localhost:9090/register_tenant' -d '{"name": "Conor", "email": "cmancone@example.com", "password": "thisisabadpassword", "repeat_password": "thisisabadpassword"}' | jq -r '.data.organization_id')
+export JWT=$(curl "http://localhost:9090/login/$ORGANIZATION_ID" -d '{"email":"cmancone@example.com","password":"thisisabadpassword"}' | jq -r '.token')
+curl 'http://localhost:9090/profile/my-organizations' -H "Authorization: Bearer $JWT"
+curl "http://localhost:9090/login/switch/$ORGANIZATION_ID" -H "Authorization: Bearer $JWT"
 ```

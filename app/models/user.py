@@ -32,7 +32,11 @@ class User(clearskies.Model):
             email('email', input_requirements=[required()]),
             password('password', input_requirements=[required()]),
             string('name', input_requirements=[required()]),
-            belongs_to("role_id", parent_models_class=role.Role),
+            belongs_to(
+                "role",
+                parent_models_class=role.Role,
+                model_column_name="role_model",
+            ),
             created('created_at'),
             updated('updated_at'),
             audit(
@@ -65,5 +69,5 @@ class User(clearskies.Model):
 
         return {
             "organization_id": new_organization.id,
-            "role_id": admin_role.id,
+            "role": admin_role.name,
         }

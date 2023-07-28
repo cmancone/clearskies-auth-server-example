@@ -9,7 +9,7 @@ registration = clearskies.Application(
         "routes": [
             # This route is used when a user registers to a tenant
             {
-                "path": "/organizations/{organization_id}/register",
+                "path": "/register/{organization_id}",
                 "request_method": "POST",
                 "handler_class": clearskies.handlers.Create,
                 "handler_config": {
@@ -30,7 +30,7 @@ registration = clearskies.Application(
             },
             # this route is used when a user registers a brand new tenant
             {
-                "path": "/organizations",
+                "path": "/register_tenant",
                 "request_method": "POST",
                 "handler_class": clearskies.handlers.Create,
                 "handler_config": {

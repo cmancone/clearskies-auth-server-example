@@ -12,8 +12,8 @@ roles = clearskies.Application(
                 "handler_config": {
                     "model_class": models.Role,
                     "writeable_columns": ["name", "description"],
-                    "readable_columns": ["id", "name", "description", "created_at", "updated_at"],
-                    "searchable_columns": ["id", "name"],
+                    "readable_columns": ["name", "description", "created_at", "updated_at"],
+                    "searchable_columns": ["name"],
                     "default_sort_column": "name",
                 },
             },
