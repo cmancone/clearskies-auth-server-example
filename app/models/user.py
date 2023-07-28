@@ -7,8 +7,6 @@ from collections import OrderedDict
 from . import audit_record, organization, role
 
 class User(clearskies.Model):
-    id_column_name = 'email'
-
     def __init__(self, memory_backend, columns, organizations, roles):
         super().__init__(memory_backend, columns)
         self._organizations = organizations

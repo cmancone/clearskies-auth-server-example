@@ -4,6 +4,7 @@ from . import models
 from .self_authenticate import self_authenticate
 
 login_configuration = {
+    "authentication": clearskies.authentication.public(),
     "user_model_class": models.user.User,
     "issuer": "clearskies.auth.example.com",
     "audience": "clearskies.auth.example.com",
@@ -21,12 +22,12 @@ login = clearskies.Application(
     {
         "routes": [
             {
-                "authentication": self_authenticate,
                 "path": "/login/switch/{organization_id}",
                 "handler_class": clearskies_auth_server.handlers.SwitchTenant,
                 "handler_config": {
                     **login_configuration,
                     **{
+                        "authentication": self_authenticate,
                         "username_key_name_in_authorization_data": "email",
                     },
                 },
@@ -34,7 +35,6 @@ login = clearskies.Application(
             {
                 # this endpoint allows a user to login directly to an org and returns a JWT which
                 # already has the organization id baked into it.
-                "authentication": clearskies.authentication.public(),
                 "path": "/login/{organization_id}",
                 "handler_class": clearskies_auth_server.handlers.PasswordLogin,
                 "handler_config": {
@@ -52,7 +52,6 @@ login = clearskies.Application(
                 # before they can do much.  This supports usage flows where someone logs into an app
                 # and then is allowed to select which organization to work with (in cases where a single
                 # user may have accounts with multiple organizations).
-                "authentication": clearskies.authentication.public(),
                 "path": "/login",
                 "handler_class": clearskies_auth_server.handlers.PasswordLogin,
                 "handler_config": {
@@ -66,7 +65,6 @@ login = clearskies.Application(
                 },
             },
             {
-                "authentication": clearskies.authentication.public(),
                 "path": ".well-known/jwks.json",
                 "handler_class": clearskies_auth_server.handlers.Jwks,
                 "handler_config": {
