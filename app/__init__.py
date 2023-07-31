@@ -1,9 +1,11 @@
 import clearskies
 from . import models
 from .login import login
+from .profile import profile
 from .registration import registration
 from .roles import roles
-from .profile import profile
+from .users import users
+
 
 app = clearskies.Application(
     clearskies.handlers.SimpleRouting,
@@ -14,6 +16,7 @@ app = clearskies.Application(
             registration,
             roles, # don't do this for production
             profile,
+            users,
         ]
     }
 )

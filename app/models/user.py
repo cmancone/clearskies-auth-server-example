@@ -1,5 +1,5 @@
 import clearskies
-from clearskies.column_types import audit, belongs_to, created, email, string, updated, uuid
+from clearskies.column_types import audit, belongs_to, created, datetime, email, string, updated, uuid
 from clearskies.input_requirements import unique, required
 import clearskies_auth_server
 from clearskies_auth_server.column_types import password, tenant_id
@@ -30,6 +30,8 @@ class User(clearskies.Model):
             email('email', input_requirements=[required()]),
             password('password', input_requirements=[required()]),
             string('name', input_requirements=[required()]),
+            string('reset_key'),
+            datetime('reset_key_expiration'),
             belongs_to(
                 "role",
                 parent_models_class=role.Role,

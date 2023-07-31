@@ -61,4 +61,6 @@ export JWT=$(curl "http://localhost:9090/login/$ORGANIZATION_ID" -d '{"email":"c
 curl 'http://localhost:9090/profile/my-organizations' -H "Authorization: Bearer $JWT"
 curl "http://localhost:9090/login/switch/$ORGANIZATION_ID" -H "Authorization: Bearer $JWT"
 curl "http://localhost:9090/profile" -d '{"name":"bob"}' -H "Authorization: Bearer $JWT"
+curl "http://localhost:9090/reset_request/$ORGANIZATION_ID" -d '{"email": "cmancone@example.com"}'
+curl "http://localhost:9090/reset/$RESET_KEY" -d '{"password":"blahblah","repeat_password": "blahblah"}'
 ```

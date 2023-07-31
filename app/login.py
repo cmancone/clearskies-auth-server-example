@@ -22,6 +22,29 @@ login = clearskies.Application(
     {
         "routes": [
             {
+                "path": "/reset_request/{organization_id}",
+                "handler_class": clearskies_auth_server.handlers.PasswordResetRequest,
+                "handler_config": {
+                    # there are more config options here but we've named our columns to match
+                    # the defaults for the handler, so no need to
+                    "user_model_class": models.user.User,
+                    "where": lambda users, routing_data: users.where(f"organization_id=" + routing_data.get("organization_id")),
+                }
+            },
+            {
+                "path": "/reset/{reset_key}",
+                "handler_class": clearskies_auth_server.handlers.PasswordReset,
+                "handler_config": {
+                    # there are more config options here but we've named our columns to match
+                    # the defaults for the handler, so no need to
+                    "user_model_class": models.user.User,
+                    "readable_columns": ["id", "email"],
+                    "column_overrides": {
+                        "organization_id": {"class": clearskies.column_types.String},
+                    }
+                }
+            },
+            {
                 "path": "/login/switch/{organization_id}",
                 "handler_class": clearskies_auth_server.handlers.SwitchTenant,
                 "handler_config": {
